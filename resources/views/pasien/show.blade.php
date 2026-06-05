@@ -54,26 +54,38 @@
         <div class="card-body p-3">
             <div class="row text-center text-muted text-xs font-weight-bold text-uppercase mb-2">
                 <div class="col-2"></div>
-                <div class="col">SPH</div>
-                <div class="col">CYL</div>
-                <div class="col">PD</div>
+                <div class="col-2">SPH</div>
+                <div class="col-2">CYL</div>
+                <div class="col-2">AX</div>
+                <div class="col-2">ADD</div>
+                <div class="col-2">PD</div>
             </div>
             <!-- OD (Right) -->
             <div class="row align-items-center mb-2">
                 <div class="col-2 text-right font-weight-bold text-dark">OD</div>
-                <div class="col">
-                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
                         {{ $pasien->sph_r ?? '-' }}
                     </div>
                 </div>
-                <div class="col">
-                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
                         {{ $pasien->cyl_r ?? '-' }}
                     </div>
                 </div>
-                <div class="col rowspan-2 align-middle">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
+                        {{ $pasien->ax_r ?? '-' }}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
+                        {{ $pasien->add_r ?? '-' }}
+                    </div>
+                </div>
+                <div class="col-2 align-middle">
                     <!-- PD often valid for both or single, simplify layout -->
-                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
                         {{ $pasien->pd ?? '-' }} <span class="text-xs text-muted font-weight-normal">mm</span>
                     </div>
                 </div>
@@ -81,17 +93,27 @@
             <!-- OS (Left) -->
             <div class="row align-items-center">
                 <div class="col-2 text-right font-weight-bold text-dark">OS</div>
-                <div class="col">
-                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
                         {{ $pasien->sph_l ?? '-' }}
                     </div>
                 </div>
-                <div class="col">
-                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
                         {{ $pasien->cyl_l ?? '-' }}
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
+                        {{ $pasien->ax_l ?? '-' }}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="bg-white p-2 rounded shadow-sm font-weight-bold text-dark text-center">
+                        {{ $pasien->add_l ?? '-' }}
+                    </div>
+                </div>
+                <div class="col-2">
                     <!-- Placeholder to align grid -->
                 </div>
             </div>
@@ -121,7 +143,7 @@
                         <div class="card-body p-3">
                             <div class="row align-items-center">
                                 <!-- Date -->
-                                <div class="col-md-3 mb-2 mb-md-0">
+                                <div class="col-md-2 mb-2 mb-md-0">
                                     <div class="font-weight-bold text-dark">
                                         {{ $riwayat->created_at->translatedFormat('d F Y') }}
                                     </div>
@@ -131,23 +153,25 @@
                                 </div>
 
                                 <!-- OD -->
-                                <div class="col-md-3 mb-2 mb-md-0">
+                                <div class="col-md-4 mb-2 mb-md-0">
                                     <span class="text-xs text-muted font-weight-bold d-block">OD (Kanan)</span>
-                                    <span class="font-weight-bold text-dark">
-                                        {{ $riwayat->sph_r ?? '-' }} / {{ $riwayat->cyl_r ?? '-' }}
+                                    <span class="font-weight-bold text-dark" style="font-size: 0.9rem;">
+                                        SPH: {{ $riwayat->sph_r ?? '-' }} | CYL: {{ $riwayat->cyl_r ?? '-' }}<br>
+                                        AX: {{ $riwayat->ax_r ?? '-' }} | ADD: {{ $riwayat->add_r ?? '-' }}
                                     </span>
                                 </div>
 
                                 <!-- OS -->
-                                <div class="col-md-3 mb-2 mb-md-0">
+                                <div class="col-md-4 mb-2 mb-md-0">
                                     <span class="text-xs text-muted font-weight-bold d-block">OS (Kiri)</span>
-                                    <span class="font-weight-bold text-dark">
-                                        {{ $riwayat->sph_l ?? '-' }} / {{ $riwayat->cyl_l ?? '-' }}
+                                    <span class="font-weight-bold text-dark" style="font-size: 0.9rem;">
+                                        SPH: {{ $riwayat->sph_l ?? '-' }} | CYL: {{ $riwayat->cyl_l ?? '-' }}<br>
+                                        AX: {{ $riwayat->ax_l ?? '-' }} | ADD: {{ $riwayat->add_l ?? '-' }}
                                     </span>
                                 </div>
 
                                 <!-- PD -->
-                                <div class="col-md-3 text-md-right">
+                                <div class="col-md-2 text-md-right">
                                     <span class="text-xs text-muted font-weight-bold d-block">PD</span>
                                     <span class="font-weight-bold text-dark">
                                         {{ $riwayat->pd ?? '-' }} mm

@@ -70,8 +70,12 @@ class TransaksiController extends Controller
                 $pasien->update([
                     'sph_r' => $request->sph_r,
                     'cyl_r' => $request->cyl_r,
+                    'ax_r' => $request->ax_r,
+                    'add_r' => $request->add_r,
                     'sph_l' => $request->sph_l,
                     'cyl_l' => $request->cyl_l,
+                    'ax_l' => $request->ax_l,
+                    'add_l' => $request->add_l,
                     'pd' => $request->pd,
                     'last_exam_date' => now(),
                 ]);
@@ -82,8 +86,12 @@ class TransaksiController extends Controller
                     'transaksi_id' => null, // Will update after transaction created
                     'sph_r' => $request->sph_r,
                     'cyl_r' => $request->cyl_r,
+                    'ax_r' => $request->ax_r,
+                    'add_r' => $request->add_r,
                     'sph_l' => $request->sph_l,
                     'cyl_l' => $request->cyl_l,
+                    'ax_l' => $request->ax_l,
+                    'add_l' => $request->add_l,
                     'pd' => $request->pd,
                 ]);
             }
@@ -156,19 +164,34 @@ class TransaksiController extends Controller
     public function getProducts(Request $request)
     {
         $search = $request->q;
-        $type = $request->type; // '1' (Frame), '2' (Lensa), 'all'
+        $type = $request->type; // 1 (Frame frontend), 2 (Lensa frontend), 'all' (Others)
 
         $query = Produk::query();
 
         if ($search) {
-            $query->where('nama', 'like', "%{$search}%")
-                ->orWhere('kode', 'like', "%{$search}%");
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('kode', 'like', "%{$search}%");
+            });
         }
 
-        if ($type && $type !== 'all') {
-            $query->where('tipe_id', $type);
-        } else if ($type === 'all') {
-            $query->whereNotIn('tipe_id', [1, 2]);
+        if ($type == '1') {
+            // Frontend requests Frame
+            $query->whereHas('tipe', function($q) {
+                $q->where('nama', 'like', '%Frame%');
+            });
+        } elseif ($type == '2') {
+            // Frontend requests Lensa
+            $query->whereHas('tipe', function($q) {
+                $q->where('nama', 'like', '%Lensa%');
+            });
+        } elseif ($type == 'all') {
+            // Frontend requests Others (not Frame and not Lensa)
+            $query->whereHas('tipe', function($q) {
+                $q->where('nama', 'not like', '%Frame%')->where('nama', 'not like', '%Lensa%');
+            });
+        } else if ($type) {
+             $query->where('tipe_id', $type);
         }
 
         $products = $query->limit(20)->get(['id', 'nama', 'harga_jual', 'stok']);

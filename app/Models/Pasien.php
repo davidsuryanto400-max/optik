@@ -14,8 +14,12 @@ class Pasien extends Model
         'last_exam_date',
         'sph_r',
         'cyl_r',
+        'ax_r',
+        'add_r',
         'sph_l',
         'cyl_l',
+        'ax_l',
+        'add_l',
         'pd'
     ];
 

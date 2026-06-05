@@ -14,8 +14,12 @@ class RiwayatPemeriksaan extends Model
         'transaksi_id',
         'sph_r',
         'cyl_r',
+        'ax_r',
+        'add_r',
         'sph_l',
         'cyl_l',
+        'ax_l',
+        'add_l',
         'pd',
     ];
 

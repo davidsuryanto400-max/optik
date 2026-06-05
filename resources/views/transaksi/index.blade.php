@@ -298,6 +298,7 @@
         // Patient Search
         $('#pasien_id').select2({
             theme: 'bootstrap4',
+            dropdownParent: $('#modalCreateTransaksi'),
             placeholder: 'Cari Pasien (Nama / No HP)...',
             ajax: {
                 url: '{{ url("transaksi/get-pasiens") }}',
@@ -325,6 +326,7 @@
         function initProductSelect(selector, type) {
             $(selector).select2({
                 theme: 'bootstrap4',
+                dropdownParent: $('#modalCreateTransaksi'),
                 placeholder: 'Cari Produk...',
                 ajax: {
                     url: '{{ url("transaksi/get-products") }}', 

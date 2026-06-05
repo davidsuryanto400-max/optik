@@ -88,8 +88,12 @@ class PasienController extends Controller
             'last_exam_date' => 'nullable|date',
             'sph_r' => 'nullable|numeric',
             'cyl_r' => 'nullable|numeric',
+            'ax_r' => 'nullable|string|max:10',
+            'add_r' => 'nullable|string|max:10',
             'sph_l' => 'nullable|numeric',
             'cyl_l' => 'nullable|numeric',
+            'ax_l' => 'nullable|string|max:10',
+            'add_l' => 'nullable|string|max:10',
             'pd' => 'nullable|string|max:10',
         ]);
 
@@ -143,8 +147,12 @@ class PasienController extends Controller
             'last_exam_date' => 'nullable|date',
             'sph_r' => 'nullable|numeric',
             'cyl_r' => 'nullable|numeric',
+            'ax_r' => 'nullable|string|max:10',
+            'add_r' => 'nullable|string|max:10',
             'sph_l' => 'nullable|numeric',
             'cyl_l' => 'nullable|numeric',
+            'ax_l' => 'nullable|string|max:10',
+            'add_l' => 'nullable|string|max:10',
             'pd' => 'nullable|string|max:10',
         ]);
 

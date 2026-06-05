@@ -171,9 +171,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th width="30%">Mata</th>
-                            <th width="25%">SPH</th>
-                            <th width="25%">CYL</th>
+                            <th width="20%">Mata</th>
+                            <th width="15%">SPH</th>
+                            <th width="15%">CYL</th>
+                            <th width="15%">AX</th>
+                            <th width="15%">ADD</th>
                             <th width="20%" style="text-align: center;">PD (mm)</th>
                         </tr>
                     </thead>
@@ -182,12 +184,16 @@
                             <td>Kanan (OD)</td>
                             <td>{{ $riwayat->sph_r ?? '-' }}</td>
                             <td>{{ $riwayat->cyl_r ?? '-' }}</td>
+                            <td>{{ $riwayat->ax_r ?? '-' }}</td>
+                            <td>{{ $riwayat->add_r ?? '-' }}</td>
                             <td rowspan="2" class="pd-cell">{{ $riwayat->pd ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td>Kiri (OS)</td>
                             <td>{{ $riwayat->sph_l ?? '-' }}</td>
                             <td>{{ $riwayat->cyl_l ?? '-' }}</td>
+                            <td>{{ $riwayat->ax_l ?? '-' }}</td>
+                            <td>{{ $riwayat->add_l ?? '-' }}</td>
                         </tr>
                     </tbody>
                 </table>

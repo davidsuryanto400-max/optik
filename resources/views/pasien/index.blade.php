@@ -173,22 +173,42 @@
                         <hr>
                         <h6 class="font-weight-bold mb-3">Resep Kacamata (Pemeriksaan Terakhir)</h6>
                         
+                        <h6 class="font-weight-bold mb-3 mt-3">Mata Kanan (OD)</h6>
                         <div class="row">
                             <div class="col-md-3 form-group">
-                                <label for="sph_r" class="font-weight-bold text-muted text-xs">SPH Kanan</label>
+                                <label for="sph_r" class="font-weight-bold text-muted text-xs">SPH</label>
                                 <input type="number" step="0.25" class="form-control border-light bg-light" id="sph_r" name="sph_r" placeholder="0.00">
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="cyl_r" class="font-weight-bold text-muted text-xs">CYL Kanan</label>
+                                <label for="cyl_r" class="font-weight-bold text-muted text-xs">CYL</label>
                                 <input type="number" step="0.25" class="form-control border-light bg-light" id="cyl_r" name="cyl_r" placeholder="0.00">
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="sph_l" class="font-weight-bold text-muted text-xs">SPH Kiri</label>
+                                <label for="ax_r" class="font-weight-bold text-muted text-xs">AX</label>
+                                <input type="text" class="form-control border-light bg-light" id="ax_r" name="ax_r" placeholder="0">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="add_r" class="font-weight-bold text-muted text-xs">ADD</label>
+                                <input type="text" class="form-control border-light bg-light" id="add_r" name="add_r" placeholder="+0.00">
+                            </div>
+                        </div>
+                        <h6 class="font-weight-bold mb-3 mt-2">Mata Kiri (OS)</h6>
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <label for="sph_l" class="font-weight-bold text-muted text-xs">SPH</label>
                                 <input type="number" step="0.25" class="form-control border-light bg-light" id="sph_l" name="sph_l" placeholder="0.00">
                             </div>
                             <div class="col-md-3 form-group">
-                                <label for="cyl_l" class="font-weight-bold text-muted text-xs">CYL Kiri</label>
+                                <label for="cyl_l" class="font-weight-bold text-muted text-xs">CYL</label>
                                 <input type="number" step="0.25" class="form-control border-light bg-light" id="cyl_l" name="cyl_l" placeholder="0.00">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="ax_l" class="font-weight-bold text-muted text-xs">AX</label>
+                                <input type="text" class="form-control border-light bg-light" id="ax_l" name="ax_l" placeholder="0">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="add_l" class="font-weight-bold text-muted text-xs">ADD</label>
+                                <input type="text" class="form-control border-light bg-light" id="add_l" name="add_l" placeholder="+0.00">
                             </div>
                         </div>
                          <div class="row">
@@ -260,8 +280,12 @@
                         $('#last_exam_date').val(data.last_exam_date ? data.last_exam_date.split('T')[0] : '');
                         $('#sph_r').val(data.sph_r);
                         $('#cyl_r').val(data.cyl_r);
+                        $('#ax_r').val(data.ax_r);
+                        $('#add_r').val(data.add_r);
                         $('#sph_l').val(data.sph_l);
                         $('#cyl_l').val(data.cyl_l);
+                        $('#ax_l').val(data.ax_l);
+                        $('#add_l').val(data.add_l);
                         $('#pd').val(data.pd);
 
                         $('#modalTambahPasien').modal('show');
