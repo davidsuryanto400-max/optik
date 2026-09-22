@@ -14,19 +14,18 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var list<string>
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
      */
     protected $hidden = [
         'password',
@@ -35,14 +34,42 @@ class User extends Authenticatable
 
     /**
      * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'is_active'         => 'boolean',
         ];
+    }
+
+    /**
+     * Get the role label for display.
+     */
+    public function getRoleLabelAttribute(): string
+    {
+        return match($this->role) {
+            'superadministrator' => 'Super Administrator',
+            'administrator'      => 'Administrator',
+            'user'               => 'User',
+            default              => ucfirst($this->role),
+        };
+    }
+
+    /**
+     * Check if the user is a superadministrator.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'superadministrator';
+    }
+
+    /**
+     * Check if the user is an administrator or higher.
+     */
+    public function isAdmin(): bool
+    {
+        return in_array($this->role, ['administrator', 'superadministrator']);
     }
 }

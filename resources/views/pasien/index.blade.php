@@ -165,13 +165,34 @@
                             <label for="last_exam_date" class="font-weight-bold text-muted text-sm">Tanggal Periksa Terakhir</label>
                             <input type="date" class="form-control border-light bg-light" id="last_exam_date" name="last_exam_date" value="{{ date('Y-m-d') }}">
                         </div>
-                        <div class="form-group">
-                            <label for="alamat" class="font-weight-bold text-muted text-sm">Alamat</label>
-                            <textarea class="form-control border-light bg-light" id="alamat" name="alamat" rows="2"></textarea>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="alamat" class="font-weight-bold text-muted text-sm">Alamat</label>
+                                <textarea class="form-control border-light bg-light" id="alamat" name="alamat" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="no_resep" class="font-weight-bold text-muted text-sm">No Resep</label>
+                                <input type="text" class="form-control border-light bg-light" id="no_resep" name="no_resep" placeholder="No...">
+                            </div>
                         </div>
 
                         <hr>
-                        <h6 class="font-weight-bold mb-3">Resep Kacamata (Pemeriksaan Terakhir)</h6>
+                        <h6 class="font-weight-bold mb-3">Detail Resep Kacamata</h6>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="resep" class="font-weight-bold text-muted text-sm">Resep (Sumber)</label>
+                                <input type="text" class="form-control border-light bg-light" id="resep" name="resep" placeholder="Contoh: dr. Spesialis Mata">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="frame" class="font-weight-bold text-muted text-sm">Frame</label>
+                                <input type="text" class="form-control border-light bg-light" id="frame" name="frame">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="lensa" class="font-weight-bold text-muted text-sm">Lensa</label>
+                                <input type="text" class="form-control border-light bg-light" id="lensa" name="lensa">
+                            </div>
+                        </div>
                         
                         <h6 class="font-weight-bold mb-3 mt-3">Mata Kanan (OD)</h6>
                         <div class="row">
@@ -278,6 +299,10 @@
                         $('#tgl_lahir').val(data.tgl_lahir ? data.tgl_lahir.split('T')[0] : '');
                         $('#alamat').val(data.alamat);
                         $('#last_exam_date').val(data.last_exam_date ? data.last_exam_date.split('T')[0] : '');
+                        $('#no_resep').val(data.no_resep);
+                        $('#resep').val(data.resep);
+                        $('#frame').val(data.frame);
+                        $('#lensa').val(data.lensa);
                         $('#sph_r').val(data.sph_r);
                         $('#cyl_r').val(data.cyl_r);
                         $('#ax_r').val(data.ax_r);

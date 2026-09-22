@@ -86,6 +86,10 @@ class PasienController extends Controller
             'alamat' => 'nullable|string',
             'tgl_lahir' => 'nullable|date',
             'last_exam_date' => 'nullable|date',
+            'no_resep' => 'nullable|string|max:255',
+            'resep' => 'nullable|string|max:255',
+            'frame' => 'nullable|string|max:255',
+            'lensa' => 'nullable|string|max:255',
             'sph_r' => 'nullable|numeric',
             'cyl_r' => 'nullable|numeric',
             'ax_r' => 'nullable|string|max:10',
@@ -145,6 +149,10 @@ class PasienController extends Controller
             'alamat' => 'nullable|string',
             'tgl_lahir' => 'nullable|date',
             'last_exam_date' => 'nullable|date',
+            'no_resep' => 'nullable|string|max:255',
+            'resep' => 'nullable|string|max:255',
+            'frame' => 'nullable|string|max:255',
+            'lensa' => 'nullable|string|max:255',
             'sph_r' => 'nullable|numeric',
             'cyl_r' => 'nullable|numeric',
             'ax_r' => 'nullable|string|max:10',
@@ -177,7 +185,7 @@ class PasienController extends Controller
 
     public function print(string $id)
     {
-        $pasien = Pasien::findOrFail($id);
+        $pasien = Pasien::with(['riwayatPemeriksaans.transaksi.items.produk.tipe'])->findOrFail($id);
         return view('pasien.print', compact('pasien'));
     }
 }

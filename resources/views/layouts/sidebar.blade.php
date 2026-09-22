@@ -18,9 +18,9 @@
                 </li>
 
                 <li
-                    class="nav-item {{ request()->is('cabang*', 'gudang*', 'tipe*', 'kategori*', 'produk*', 'pasien*') ? 'menu-open' : '' }}">
+                    class="nav-item {{ request()->is('cabang*', 'gudang*', 'tipe*', 'kategori*', 'produk*', 'pasien*', 'user*') ? 'menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ request()->is('cabang*', 'gudang*', 'tipe*', 'kategori*', 'produk*', 'pasien*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('cabang*', 'gudang*', 'tipe*', 'kategori*', 'produk*', 'pasien*', 'user*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Master
@@ -68,6 +68,13 @@
                                 class="nav-link {{ request()->is('pasien*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pasien</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('user.index') }}"
+                                class="nav-link {{ request()->is('user*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User</p>
                             </a>
                         </li>
                     </ul>

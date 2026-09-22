@@ -13,39 +13,51 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Total pasien
         $totalPasien = Pasien::count();
-        $totalPenjualan = Transaksi::sum('total_harga');
 
-        $avgUmur = Pasien::selectRaw('AVG(TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE())) as avg_age')->value('avg_age');
-        $avgUmur = (int) round($avgUmur);
-
-        $produkTerlaris = Produk::select('produks.nama', DB::raw('SUM(transaksi_items.qty) as total_terjual'))
+        // Produk terlaris (top 10)
+        $produkTerlaris = Produk::select('produks.id', 'produks.nama', DB::raw('SUM(transaksi_items.qty) as total_terjual'))
             ->join('transaksi_items', 'produks.id', '=', 'transaksi_items.produk_id')
             ->groupBy('produks.id', 'produks.nama')
             ->orderByDesc('total_terjual')
-            ->limit(5)
+            ->limit(10)
             ->get();
 
-        $stokRendah = Produk::where('stok', '<=', 10)->where('stok', '>', 0)->orderBy('stok', 'asc')->limit(10)->get();
-        $stokHabis = Produk::where('stok', 0)->limit(10)->get();
+        // Stok rendah (stok <= stok_minimum dan > 0)
+        $stokRendah = Produk::where('stok', '>', 0)
+            ->whereColumn('stok', '<=', 'stok_minimum')
+            ->orderBy('stok', 'asc')
+            ->get();
 
-        // Upcoming birthdays (next 30 days) with days remaining calculation
+        // Stok habis
+        $stokHabis = Produk::where('stok', 0)
+            ->orderBy('nama', 'asc')
+            ->get();
+
+        // Ulang tahun dalam 30 hari ke depan
         $today = Carbon::now();
-        $ultah = Pasien::all()->map(function ($p) use ($today) {
-            $nextBday = Carbon::parse($p->tgl_lahir)->year($today->year);
-            if ($nextBday->isPast()) {
-                $nextBday->addYear();
-            }
-            $p->days_until = (int) $today->diffInDays($nextBday, false);
-            $p->next_bday = $nextBday;
-            return $p;
-        })
-            ->filter(function ($p) {
-                return $p->days_until >= 0 && $p->days_until <= 30;
+        $ultah = Pasien::whereNotNull('tgl_lahir')
+            ->get()
+            ->map(function ($p) use ($today) {
+                $nextBday = Carbon::parse($p->tgl_lahir)->year($today->year);
+                if ($nextBday->isPast() && !$nextBday->isToday()) {
+                    $nextBday->addYear();
+                }
+                $p->days_until = (int) $today->startOfDay()->diffInDays($nextBday->startOfDay(), false);
+                $p->next_bday  = $nextBday;
+                return $p;
             })
+            ->filter(fn($p) => $p->days_until >= 0 && $p->days_until <= 30)
             ->sortBy('days_until')
-            ->take(10);
+            ->values();
 
-        return view('dashboard', compact('totalPasien', 'totalPenjualan', 'avgUmur', 'produkTerlaris', 'stokRendah', 'stokHabis', 'ultah'));
+        return view('dashboard', compact(
+            'totalPasien',
+            'produkTerlaris',
+            'stokRendah',
+            'stokHabis',
+            'ultah'
+        ));
     }
 }

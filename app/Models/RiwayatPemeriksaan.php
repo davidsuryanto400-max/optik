@@ -12,6 +12,10 @@ class RiwayatPemeriksaan extends Model
     protected $fillable = [
         'pasien_id',
         'transaksi_id',
+        'no_resep',
+        'resep',
+        'frame',
+        'lensa',
         'sph_r',
         'cyl_r',
         'ax_r',
