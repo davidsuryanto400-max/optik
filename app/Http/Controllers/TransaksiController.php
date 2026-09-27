@@ -238,7 +238,7 @@ class TransaksiController extends Controller
             'password' => 'required|string',
         ]);
 
-        if ($request->password !== 'admin123') {
+        if ($request->password !== '12345678') {
             return response()->json(['valid' => false, 'message' => 'Password salah!'], 401);
         }
 

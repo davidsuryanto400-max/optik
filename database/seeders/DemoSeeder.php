@@ -57,10 +57,31 @@ class DemoSeeder extends Seeder
         ];
 
         DB::table('produks')->truncate(); // Hapus yang ada agar demo clean
+        $adminUser = \App\Models\User::where('role', 'administrator')->orWhere('role', 'superadministrator')->first();
+        $adminId   = $adminUser ? $adminUser->id : null;
+        $adminName = $adminUser ? $adminUser->name : 'Admin';
+
         foreach ($produks as $p) {
             $p['kategori_id'] = $kategoriId;
             $p['gudang_id'] = $gudangId;
-            Produk::create($p);
+            $produkModel = Produk::create($p);
+
+            // Buat record stok awal agar history nyambung dengan nilai stok produk
+            if ($produkModel->stok > 0) {
+                \App\Models\StockHistory::create([
+                    'produk_id'   => $produkModel->id,
+                    'user_id'     => $adminId,
+                    'tipe'        => 'Stok Awal',
+                    'jumlah'      => $produkModel->stok,
+                    'stok_awal'   => 0,
+                    'stok_akhir'  => $produkModel->stok,
+                    'catatan'     => 'Stok Awal (Data Demo)',
+                    'created_by'  => $adminName,
+                    'modified_by' => $adminName,
+                    'created_at'  => now()->subDays(30),
+                    'updated_at'  => now()->subDays(30),
+                ]);
+            }
         }
 
         // Bikin Pasien

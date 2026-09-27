@@ -134,7 +134,7 @@ class ProdukController extends Controller
             'password' => 'required|string',
         ]);
 
-        if ($request->password !== 'admin123') {
+        if ($request->password !== '12345678') {
             return back()->withErrors(['password' => 'Password salah!'])->withInput();
         }
 
@@ -182,7 +182,7 @@ class ProdukController extends Controller
             'password' => 'required|string',
         ]);
 
-        if ($request->password !== 'admin123') {
+        if ($request->password !== '12345678') {
             return response()->json(['valid' => false, 'message' => 'Password salah!'], 401);
         }
 

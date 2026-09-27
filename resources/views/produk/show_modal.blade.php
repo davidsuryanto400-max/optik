@@ -57,7 +57,7 @@
                         <i class="fas fa-lock mr-3 text-muted" style="font-size: 1.5rem;"></i>
                         <div>
                             <h6 class="alert-heading font-weight-bold mb-1">Manajemen Stok (Akses Admin)</h6>
-                            <p class="mb-0 text-muted text-xs">Masukkan password untuk mengubah stok produk.</p>
+                            <p class="mb-0 text-muted text-xs">Masukkan password akun admin untuk mengubah stok produk.</p>
                         </div>
                     </div>
                     <div class="form-group">
