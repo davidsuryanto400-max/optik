@@ -23,28 +23,24 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ], [
-            'username.required' => 'Username wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-        ]);
+        // BYPASS LOGIN: Mengabaikan input dan langsung login sebagai admin
+        $user = \App\Models\User::where('username', 'admin')->first();
+        
+        // Jika user admin belum ada (belum di-seed), gunakan user apa saja yang ada
+        if (!$user) {
+            $user = \App\Models\User::first();
+        }
 
-        $credentials = [
-            'username'  => $request->username,
-            'password'  => $request->password,
-            'is_active' => true,
-        ];
-
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if ($user) {
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'));
         }
 
+        // Jika database benar-benar kosong
         return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ])->withInput($request->only('username'));
+            'username' => 'Tidak ada user di database. Harap jalankan: php artisan migrate --seed',
+        ]);
     }
 
     /**
